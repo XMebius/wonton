@@ -67,3 +67,11 @@ const std::vector<uint32_t>& Tensor<float>::raw_shapes() const {
 正常来说，返回引用效率更高，可以避免复制整个vector。同时const保证了后续在调用raw_shapes()的时候不会修改raw_shape。将张量的shape设置为const是合理的因为这个数值应该避免被修改。
 
 而第一个函数不能设置引用，因为`{this->channels(), this->rows(), this->cols()}`是一个临时变量，返回引用会导致返回的引用指向一个临时变量，这个临时变量在函数结束后会被销毁，引用指向的内存地址会被释放，这样返回的引用就是一个野指针了。
+
+而相似的，下面这段代码也会报错
+```cpp
+arma::fcube& Tensor<float>::data() const{
+    return this->raw_data;
+}
+```
+因为const表示这个函数不会修改raw_data，但是返回的引用是可以修改的，相当于提供了一个修改raw_data的途径，这是不允许的，所以要么把const去掉，使得函数可以修改raw_data，要么不删const把返回值改为arma::fcube，或者把返回值改为const arma::fcube&。

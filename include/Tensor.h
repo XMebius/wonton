@@ -93,6 +93,80 @@ namespace wonton{
          */
         float index(uint32_t offset) const;
         float& index(uint32_t offset);
+        /**
+         * @brief check empty
+         * @return
+         */
+        bool empty() const;
+        /**
+         * @brief set data from a 3-dim matrix
+         * @param data
+         */
+        void set_data(const arma::fcube& data);
+        /**
+         * @brief get data values
+         * @return
+         */
+        arma::fcube& data();
+        const arma::fcube& data() const;
+        /**
+         * @brief get data values from a channel
+         * @param channel
+         * @return
+         */
+        arma::fmat& slice(uint32_t channel);
+        const arma::fmat& slice(uint32_t channel) const;
+        /**
+         * @brief get data values from a channel, row and col
+         * @param channel
+         * @param row
+         * @param col
+         * @return
+         */
+        float at(uint32_t channel, uint32_t row, uint32_t col) const;
+        float& at(uint32_t channel, uint32_t row, uint32_t col);
+        /**
+         * @brief fill the tensor with a value
+         * @param value
+         */
+        void fill(float value);
+        void fill(std::vector<float> values, bool row_major = true);
+
+        // TODO
+        /**
+         * @brief get data values through row_major or not
+         * @param row_major
+         * @return
+         */
+        std::vector<float> values(bool row_major);
+        /**
+         * @brief show the tensor
+         */
+        void show();
+        /**
+         * @brief set all the elements to 1
+         */
+        void ones();
+        /**
+         * @brief et all the elements to 0
+         */
+        void zeros();
+        /**
+         * @brief set all the elements to a random value
+         */
+        void rand();
+        /**
+         * @brief reshape the tensor
+         * @param shape : new shape
+         * @param row_major
+         */
+        void reshape(const std::vector<uint32_t>& shape, bool row_major);
+        /**
+         * @brief flatten the tensor
+         * @param row_major
+         */
+        void flatten(bool row_major);
+
 
     private:
         std::vector<uint32_t> raw_shape;     // original shape
