@@ -1,6 +1,4 @@
-#include <armadillo>
-#include <gtest/gtest.h>
-#include <glog/logging.h>
+#include <Test.h>
 
 TEST(ArmaTest, add) {
     arma::vec a = {1, 2, 3};

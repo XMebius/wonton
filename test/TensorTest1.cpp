@@ -7,9 +7,8 @@
   *******************************************************
   */
 
-#include <Tensor.h>
-#include <gtest/gtest.h>
-#include <glog/logging.h>
+#include <Test.h>
+
 
 TEST(TensorTest, construct1){
     wonton::Tensor<float> t(10);
@@ -51,6 +50,16 @@ TEST(TensorTest, construct3){
     EXPECT_EQ(t.raw_shapes(), raw_vec);
     EXPECT_EQ(t.index(59), 0.0f);
     EXPECT_FALSE(t.empty());
+}
+
+TEST(test_tensor_values, tensor_values1) {
+    using namespace wonton;
+    Tensor<float> f1(2, 3, 4);
+    f1.rand();
+    f1.show();
+
+    LOG(INFO) << "Data in the first channel: " << f1.slice(0);
+    LOG(INFO) << "Data in the (1,1,1): " << f1.at(1, 1, 1);
 }
 
 TEST(TensorTest, construct4){
@@ -163,3 +172,5 @@ TEST(test_fill_reshape, fill1) {
     f1.fill(values);
     f1.show();
 }
+
+

@@ -162,10 +162,22 @@ namespace wonton{
          */
         void reshape(const std::vector<uint32_t>& shape, bool row_major);
         /**
+         * @brief filter the elements through a function
+         * @param filter
+         */
+        void transform(const std::function<float(float)>& filter);
+        /**
          * @brief flatten the tensor
          * @param row_major
          */
         void flatten(bool row_major);
+        /**
+         * @brief padding the tensor
+         * @param pads : padding size
+         * @param padding_value : padding value
+         */
+        void padding(const std::vector<uint32_t>& pads,float padding_value);
+
 
 
     private:
@@ -173,6 +185,7 @@ namespace wonton{
         arma::fcube raw_data;                // original data (always 3-dim)
     };
     template<> class Tensor<uint8_t> {};    // 8-bit unsigned integer
+    using ftensor = Tensor<float>;
 };
 
 #endif //WONTON_TENSOR_H
